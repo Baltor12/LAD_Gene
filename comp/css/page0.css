@@ -1,0 +1,142 @@
+html {
+  background: url('../images/BackGround-Image.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #2f2f2f;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  background: url('../images/BackGround-Image.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form1{
+  background-color: rgba(255, 255, 255, .9);
+    border-radius: 5px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input{
+  font-family: 'Ariel', sans-serif;
+}
+
+input:placeholder-shown{
+  color: #CACDCE;
+}
+
+::-webkit-input-placeholder {
+   color: #CACDCE;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #CACDCE;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #CACDCE;
+}
+
+:-ms-input-placeholder {
+   color: #CACDCE;
+}
+
+.position {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -260px;
+}
+
+
+
+.field {
+  width: 250px;
+  padding: 8px 15px 8px 15px;
+  font-size: 14px;
+  border: 2px solid #706E6E;
+}
+
+.modal {
+    width: 500px;
+    margin-left: -230px;
+    background-color: rgba(255, 255, 255, .7);
+    border-radius: 5px;
+    z-index: 11;
+}
+
+
+/*@media only screen and (max-width: 800px) */
+@media (max-width: 800px) and (min-width: 700px){
+.modal{
+  zoom:0.8;
+}
+}
+
+@media (max-width: 699px) and (min-width: 500px){
+.modal{
+  zoom:0.7;
+}
+}
+
+@media (max-width: 499px) and (min-width: 370px){
+.modal{
+  zoom:0.5;
+}
+}
+
+
+@media (max-width: 369px) and (min-width: 260px){
+.modal{
+  zoom:0.4;
+}
+}
+
+
+@media only screen and (max-width: 259px){
+  .modal{
+    zoom:0.25;
+  }
+}
+
+.btn {
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 8px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  background: #454aad;
+  padding: 5px 15px 5px 15px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+

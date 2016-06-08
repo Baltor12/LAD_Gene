@@ -1,0 +1,193 @@
+
+*{
+	margin: 0;
+}
+html {
+	height: 100%;
+}
+body {
+  height: 94%;
+  color: #2f2f2f;
+  background: url('../images/BackGround-Image.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.field {
+  width: 250px;
+  padding: 3px 10px 3px 10px;
+  font-size: 14px;
+  border: 2px solid #706E6E;
+}
+
+/*=======================Tabset=======================*/
+
+.main-div{
+    height:95%;
+    padding:0;
+    background-color: rgba(255,255,255,.95);
+    margin: 20px 25px 0;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px; 
+    border-top-right-radius: 8px;   
+}
+
+/*====================================================*/
+
+
+/*=======================Tabset=======================*/
+
+.tabrow {
+  text-align: right;
+  list-style: none;
+  margin: 0 25px 20px;
+  padding: 0;
+  line-height: 35px;
+  height: 37px;
+  overflow: hidden;
+  font-size: 12px;
+  position: relative;
+}
+
+.tabrow li {
+  cursor: pointer;  
+  border: 1px solid #AAA;
+  background: #D1D1D1;
+  background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+  display: inline-block;
+  position:relative;
+  z-index: 0;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF;
+  text-shadow: 0 1px #FFF;
+  margin: 0 -5px;
+  padding: 0 30px;
+}
+
+.tabrow a {
+  color: #555;
+  text-decoration: none;
+}
+
+.tabrow li.selected {
+  background: #FFF;
+  color: #333;
+  z-index: 2;
+  border-top-color: #FFF;
+}
+
+.tabrow:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-top: 1px solid #AAA;
+  z-index: 1;
+}
+
+.tabrow li:before,
+.tabrow li:after {
+  border: 1px solid #AAA;
+  position: absolute;
+  top: -1px;
+  width: 6px;
+  height: 6px;
+  content: "";
+}
+
+.tabrow li:before {
+  left: -7px;
+  border-top-right-radius: 6px;
+  border-width: 1px 1px 0px 0px;
+  box-shadow: 2px 0px 0 #ECECEC;
+}
+
+.tabrow li:after {
+  right: -7px;
+  border-top-left-radius: 6px;
+  border-width: 1px 0px 0px 1px;
+  box-shadow: -2px 0px 0 #ECECEC;
+}
+
+.tabrow li.selected:before {
+  box-shadow: 2px 0px 0 #FFF;
+}
+
+.tabrow li.selected:after {
+  box-shadow: -2px 0px 0 #FFF;
+}
+
+.cust-tabs {
+    height:45px;
+    margin: 0 15% 0; 
+    padding: 0 0 0 0;
+    overflow:visible;
+}
+
+.cust-tab {
+    cursor: pointer; 
+    width:200px;
+    height:45px;
+    overflow:hidden;
+    float:left;
+    margin: 3% -15px 0 0;
+}
+
+.cust-tab-box {
+    text-align: center;
+    vertical-align: center;  
+    height:50px;
+    background: #fff;
+    border-radius: 4px;
+    border:2px solid #000;
+    margin:0 10px 0;
+    box-shadow: 0 0 2px  #fff inset;
+    -webkit-transform: perspective(100px) rotateX(30deg);
+    -moz-transform: perspective(100px) rotateX(30deg);
+  
+}
+
+.cust-tab.active {
+    z-index:40;
+    position:relative;
+    padding-bottom:1px;
+}
+
+.cust-tab.active .cust-tab-box{
+    background-color: #D1D1D1;
+    @include background-image(linear-gradient(top, #ccc , #ddd 3%, rgba(#eee, 0.5)));
+    box-shadow : 0 0 2px 0 #fff inset;
+}
+
+.content {
+    margin: 2% 15% 0; 
+    z-index:1;
+    height:75%;
+    border:2px solid #000;
+    background:#D1D1D1;
+    position:relative;  
+}
+
+.clear {
+    clear:both;
+}
+
+/*====================================================*/
+
+
+/*=======================div scrollable=======================*/
+
+.scrollable{
+    background-color: #DEDEDE;
+     overflow-y: scroll;
+     margin: 10px 15px 10px;
+     height: 300px;
+     border: inset;
+}

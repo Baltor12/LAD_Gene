@@ -1,0 +1,15 @@
+{
+    "name": "LadderDiagramGenerator",
+    "version": "0.1.0",
+    "description": "An web based application for the generation of ladder diagrams.",
+    "main": "app.js",
+    "author": {
+        "name": "Balaji Gopalakrishnan",
+        "email": "balaji.aviator@gmail.com"
+    },
+    "dependencies": {
+        "ejs": "~0.8.5",
+        "express": "3.4.4",
+        "jade": "*"
+    }
+}

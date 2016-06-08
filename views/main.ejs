@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LAD-Gen</title>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+    <script src="js/controller/angularCodes.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body ng-app="myApp" ng-controller="mainController">
+    <div class="main-div" ng-show="mainTab.ioVisibility">
+        <div class="cust-tabs">
+            <div class="cust-tab active" ng-click="ioTabChange('input')">
+                <div class="cust-tab-box fnt-palatino fnt-25 mt-top-5">Inputs</div>
+            </div>
+            <div class="cust-tab" ng-click="ioTabChange('output')">
+                <div class="cust-tab-box fnt-palatino fnt-25 mt-top-5">Outputs</div>
+            </div>
+        </div>
+        <div class="content" ng-show="ioTab.inpVis">
+            </br>
+            <div class="row">
+                <div class="col-md-10 col-ls-10">
+                </div>
+                <div class="col-md-2 col-ls-2">
+                    <button id="addInput" class="btn btn-success" ng-click="addInput()"><i class="fa fa-plus"></i></button></br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 col-ls-1">
+                </div>
+                <div class="col-md-10 col-ls-10">
+                    <div class="scrollable">
+                        <div class="row">
+                            <div class="col-md-1 col-ls-1">
+                            </div>
+                            <div class="col-md-10 col-ls-10">
+                                <div ng-repeat="i in inputs">
+                                    <input type="text" placeholder="Input Name" class="field mt-bot-10" ng-model="i.name">
+                                    <input type="text" placeholder="Input Tag" class="field mt-bot-10" ng-model="i.tag">
+                                    <button id="deleteInput" class="btn btn-danger" ng-click="deleteInput(i.id)"><i class="fa fa-close"></i></button></br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content" ng-show="!ioTab.inpVis">
+            </br>
+            <div class="row">
+                <div class="col-md-10 col-ls-10">
+                </div>
+                <div class="col-md-2 col-ls-2">
+                    <button id="addOutput" class="btn btn-success" ng-click="addOutput()"><i class="fa fa-plus"></i></button></br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 col-ls-1">
+                </div>
+                <div class="col-md-10 col-ls-10">
+                    <div class="scrollable">
+                        <div class="row">
+                            <div class="col-md-1 col-ls-1">
+                            </div>
+                            <div class="col-md-10 col-ls-10">
+                                <div ng-repeat="i in outputs">
+                                    <input type="text" placeholder="Output Name" class="field mt-bot-10" ng-model="i.name">
+                                    <input type="text" placeholder="Output Tag" class="field mt-bot-10" ng-model="i.tag">
+                                    <button id="deleteOutput" class="btn btn-danger" ng-click="deleteOutput(i.id)"><i class="fa fa-close"></i></button></br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-div" ng-show="!mainTab.ioVisibility">
+
+    </div>
+    <ul class="tabrow">
+        <li class="selected" ng-click="mainTabChange('io')"><a>I/0</a></li>
+        <li class="" ng-click="mainTabChange('fc')"><a>FlowChart</a></li>
+    </ul>
+    <script>
+        $("li").click(function(e) {
+            e.preventDefault();
+            $("li").removeClass("selected");
+            $(this).addClass("selected");
+        });
+        $('.cust-tab').click(function(){
+            $('.cust-tab').removeClass('active');
+            $(this).addClass('active');
+        });
+    </script>
+</body>
+
+</html>

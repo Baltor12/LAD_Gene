@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LAD-Gen</title>
+    <link rel="stylesheet" href="css/page0.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <!--- main center panel for login ---->
+    <div class="modal position">
+        <div id='md-top-25' style="text-align: center;">
+            <h2>
+                LAD-Gen
+            </h2>
+        </div>
+        <br/>
+        <div class="wd-450 mt-left-25">
+            <span class="fnt-20 fnt-Trebuchet">A web based Application for converting PLC logics in FlowChart to Ladder Diagram </span>
+        </div>
+        <!-- login form -->
+        <form id="sign-in" action="/initializing" method="post" class="form1 mt-top-10 mt-left-25 wd-450" style="text-align:center;">
+            <div class="mt-bot-10">
+                <span class="fnt-20 fnt-palatino"> <strong> Login </strong> </span>
+            </div>
+            <input type="text" name="email" id="user" placeholder="USERNAME / EMAIL" class="field mt-bot-10" required><br/>
+            <input type="password" name="password" placeholder="PASSWORD" class="field mt-bot-10" required><br/>
+            <button id="submit" name="sign-in-button" class="mt-bot-10 btn">Log In</button>
+        </form>
+        <div class="mt-left-25 mt-top-25 wd-450">
+            <span class="fnt-15 fnt-courier"> *If you dont have login details please send a mail to <strong> balaji.aviator@gmail.com </strong> mentioning your email address and reason for accessing</span>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on("wrong_credentials", function(data){
+            alert("Wrong Credentials! Please check your Login Details");
+        });
+    </script>
+</body>
+
+</html>

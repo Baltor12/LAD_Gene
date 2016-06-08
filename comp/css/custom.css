@@ -1,0 +1,384 @@
+
+
+/*=====================================================*/
+
+/*--------------------- Font -----------------------*/
+
+/*==================== Font Family =================*/
+
+.fnt-palatino {
+    font-family:"Palatino Linotype";
+}
+
+.fnt-Trebuchet {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+.fnt-courier{
+    font-family: "Courier New", Courier, monospace;
+}
+
+
+
+/*==================== Font Style =================*/
+
+.fnt-Italic {
+    font-style: italic;
+}
+
+.fnt-Bold {
+    font-weight: bold;
+}
+
+.fnt-small-caps{
+    font-variant: small-caps;
+}
+
+/*==================== Font Color =================*/
+
+.fnt-white{
+    color: white;
+}
+
+/*==================== Font Size =================*/
+
+.fnt-5{
+    font-size: 5px;
+}
+
+.fnt-10{
+    font-size: 10px;
+}
+
+.fnt-15{
+    font-size: 15px;
+}
+
+.fnt-18{
+    font-size: 15px;
+}
+
+.fnt-20{
+    font-size: 20px;
+}
+
+.fnt-25{
+    font-size: 25px;
+}
+
+.fnt-30{
+    font-size: 30px;
+}
+
+.fnt-35{
+    font-size: 35px;
+}
+
+.fnt-40{
+    font-size: 40px;
+}
+
+.fnt-45{
+    font-size: 45px;
+}
+
+.fnt-50{
+    font-size: 50px;
+}
+
+/*=====================================================*/
+
+/*--------------------- Margin -----------------------*/
+
+/*==================== Left Margin  =================*/
+
+.mt-left-3{
+    margin-left: 3px;
+}
+
+.mt-left-5{
+    margin-left: 5px;
+}
+
+.mt-left-6{
+    margin-left: 6px;
+}
+
+.mt-left-10{
+    margin-left: 10px;
+}
+
+.mt-left-15{
+    margin-left: 15px;
+}
+
+.mt-left-20{
+    margin-left: 20px;
+}
+
+.mt-left-25{
+    margin-left: 25px;
+}
+
+/*==================== Right Margin  =================*/
+
+.mt-right-5{
+    margin-right: 5px;
+}
+
+.mt-right-10{
+    margin-right: 10px;
+}
+
+.mt-right-15{
+    margin-right: 15px;
+}
+
+.mt-right-20{
+    margin-right: 20px;
+}
+
+.mt-right-25{
+    margin-right: 25px;
+}
+
+/*==================== Top Margin  =================*/
+
+.mt-top-5{
+    margin-top: 5px;
+}
+
+.mt-top-10{
+    margin-top: 10px;
+}
+
+.mt-top-15{
+    margin-top: 15px;
+}
+
+.mt-top-20{
+    margin-top: 20px;
+}
+
+.mt-top-25{
+    margin-top: 25px;
+}
+
+.mt-top-50{
+    margin-top: 50px;
+}
+
+/*==================== Bottom Margin  =================*/
+
+.mt-bot-5{
+    margin-bottom: 5px
+}
+
+.mt-bot-10{
+    margin-bottom: 10px
+}
+
+.mt-bot-15{
+    margin-bottom: 15px
+}
+
+.mt-bot-20{
+    margin-bottom: 20px
+}
+
+.mt-bot-25{
+    margin-bottom: 25px
+}
+
+/*==================== All Margin  =================*/
+
+.mt-all-5{
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.mt-all-10{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.mt-all-15 {
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.mt-all-20{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.mt-all-25{
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+}
+
+/*==================== Custom Margin  =================*/
+
+.mt-rightLeft-50{
+    margin-left: 50px;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+}
+
+/*=====================================================*/
+
+/*--------------------- Padding ------------------------*/
+
+/*==================== Left Padding  =================*/
+
+.pd-left-5{
+    margin-left: 5px;
+}
+
+.pd-left-10{
+    padding-left: 10px;
+}
+
+.pd-left-15{
+    padding-left: 15px;
+}
+
+.pd-left-20{
+    padding-left: 20px;
+}
+
+.pd-left-25{
+    padding-left: 25px;
+}
+
+.pd-left-50{
+    padding-left: 50px;
+}
+
+.pd-left-100{
+    padding-left: 100px;
+}
+
+/*==================== Right Padding  =================*/
+
+.pd-right-5{
+    padding-right: 5px;
+}
+
+.pd-right-10{
+    padding-right: 10px;
+}
+
+.pd-right-15{
+    padding-right: 15px;
+}
+
+.pd-right-20{
+    padding-right: 20px;
+}
+
+.pd-right-25{
+    padding-right: 25px;
+}
+
+/*==================== Bottom Padding  =================*/
+
+.pd-bot-5{
+    padding-bottom: 5px
+}
+
+.pd-bot-10{
+    padding-bottom: 10px
+}
+
+.pd-bot-15{
+    padding-bottom: 15px
+}
+
+.pd-bot-20{
+    padding-bottom: 20px
+}
+
+.pd-bot-25{
+    padding-bottom: 25px
+}
+
+/*==================== Top Padding  =================*/
+
+.pd-top-5{
+    padding-top: 5px;
+}
+
+.pd-top-10{
+    padding-top: 10px;
+}
+
+.pd-top-15{
+    padding-top: 15px;
+}
+
+.pd-top-20{
+    padding-top: 20px;
+}
+
+.pd-top-25{
+    padding-top: 25px;
+}
+
+/*==================== All Padding  =================*/
+
+.pd-all-5{
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+.pd-all-10{
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.pd-all-15 {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.pd-all-20{
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px; 
+}
+
+.pd-all-25{
+    padding-left: 25px;
+    padding-top: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+}
+
+/*--------------------- Padding ------------------------*/
+
+.wd-250{
+    width : 250px;   
+}
+
+.wd-450{
+    width : 450px;   
+}
