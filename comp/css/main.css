@@ -25,16 +25,35 @@ body {
   border: 2px solid #706E6E;
 }
 
+.drop-down {
+  padding: 3px 10px 3px 10px;
+  font-size: 14px;
+  border: 2px solid #706E6E;
+}
+
 /*=======================Tabset=======================*/
 
 .main-div{
     height:95%;
     padding:0;
     background-color: rgba(255,255,255,.95);
-    margin: 20px 25px 0;
+    margin: 10px 10px 0;
     border-bottom-left-radius: 8px;
     border-top-left-radius: 8px; 
     border-top-right-radius: 8px;   
+}
+
+.ladder-div{
+    width:71%;
+    height:80%;
+    background-color: #A5BDFF;
+    margin: 0 0 0 18px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; 
+    border-top-right-radius: 8px; 
+    top:3%;
+    left:9%;
+    position: absolute;
 }
 
 /*====================================================*/
@@ -42,10 +61,11 @@ body {
 
 /*=======================Tabset=======================*/
 
+/*Bottom*/
 .tabrow {
   text-align: right;
   list-style: none;
-  margin: 0 25px 20px;
+  margin: 0 10px 10px;
   padding: 0;
   line-height: 35px;
   height: 37px;
@@ -124,6 +144,96 @@ body {
   box-shadow: -2px 0px 0 #FFF;
 }
 
+/*Left*/
+.tabcol {
+  text-align: left;
+  list-style: none;
+  margin: 0 10px 10px;
+  padding: 0;
+  line-height: 35px;
+  height: 20%;
+  width: 9%;
+  overflow: hidden;
+  font-size: 14px;
+  top:3%;
+  position: absolute;
+}
+
+.tabcol li {
+  cursor: pointer;  
+  border: 1px solid #AAA;
+  background: #D1D1D1;
+  background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);
+  /*display: inline-block;*/
+  /*position:relative;*/
+  z-index: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  box-shadow: 3px 1px 0px rgba(0, 0, 0, 0.4), inset 1px 0 #A5BDFF;
+  text-shadow: 0 1px #FFF;
+  padding: 0 25px;
+}
+
+.tabcol a {
+  color: #555;
+  text-decoration: none;
+}
+
+.tabcol li.selected {
+  background: #A5BDFF;
+  color: #000;
+  z-index: 2;
+  border-right-color: #A5BDFF;
+}
+
+.tabcol:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-top: 1px solid #AAA;
+  z-index: 1;
+}
+
+.tabcol li:before,
+.tabcol li:after {
+  border: 1px solid #AAA;
+  position: absolute;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  content: "";
+}
+
+.tabcol li:before {
+  top: -7px;
+  border-top-right-radius: 6px;
+  border-width: 0px 0px 1px 1px;
+  box-shadow: 2px 0px 0 #ECECEC;
+}
+
+.tabcol li:after {
+  bottom: -7px;
+  border-bottom-left-radius: 6px;
+  border-width: 0px 1px 1px 0px;
+  box-shadow: -2px 0px 0 #ECECEC;
+}
+
+.tabcol li.selected:before {
+  box-shadow: 0px 2px 0 #A5BDFF;
+}
+
+.tabcol li.selected:after {
+  box-shadow: 0px -2px 0 #A5BDFF;
+}
+
+
+
+
+
+
+/*Top*/
 .cust-tabs {
     height:45px;
     margin: 0 15% 0; 
@@ -191,3 +301,163 @@ body {
      height: 300px;
      border: inset;
 }
+
+/*====================================================*/
+
+
+/*=======================Context Menu=======================*/
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    padding: 0px;
+    font-family: sans-serif;
+    font-size: 14px;
+    background: #fff;
+    color: #555;
+    border: 1px solid #C6C6C6;
+    -webkit-transition: opacity .5s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+    box-shadow: 2px 2px 2px 0px rgba(143, 144, 145, 1);
+    list-style-type: none;
+}
+        
+.context-menu a {
+    display: block;
+    color: #555;
+    text-decoration: none;
+    padding: 6px;
+    position: relative;
+}
+        
+.context-menu a img,
+.context-menu a i.fa {
+    height: 20px;
+    font-size: 17px;
+    width: 10px;
+    position: absolute;
+}
+        
+.context-menu a span {
+    color: #BCB1B3;
+    float: right;
+}
+        
+.context-menu a:hover {
+    cursor: pointer;
+    color: #fff;
+    background: #3879D9;
+}
+
+/*====================================================*/
+
+
+/*=========================Scrollable div for Flowchart canvas===========================*/
+
+#scrollDiv{
+    float: left; 
+    width: 80%;
+    height: 97%; 
+    margin: 1%;    
+    overflow:scroll;
+    background-color: #EEEEEE;
+    border: 2px solid #808080;
+}
+
+#scrollDiv-ladder{
+    float: left; 
+    width: 98%;
+    height: 97%; 
+    margin: 1%;    
+    overflow:scroll;
+    background-color: #EEEEEE;
+    border: 2px solid #808080;
+}
+
+/*====================================================*/
+
+/*===========================I/O panel=========================*/
+
+#output-select{
+    display: none;
+    position:absolute;
+    top: 5%;
+    right: 2%; 
+    width: 17%;
+    height: 25%;
+    border: 2px solid #808080;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#input-select{
+    display: none;
+    position:absolute;
+    top: 5%;
+    right: 2%; 
+    width: 17%;
+    height: 25%;
+    border: 2px solid #808080;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*====================================================*/
+
+/*==========================genererate button space ==========================*/
+
+#generate-button{
+    position:absolute;
+    bottom: 11%;
+    right: 2%; 
+    width: 17%;
+    }
+
+/*====================================================*/
+
+/*==========================Button==========================*/
+
+.butn {
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  background: #454aad;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+
+.butn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+.gene-button{
+  font-size: 18px;
+}
+
+/*====================================================*/

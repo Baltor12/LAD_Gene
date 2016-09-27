@@ -32,7 +32,7 @@ module.exports = function (app, io) {
     });
 
     // =====================================
-    // Initializing page) =================
+    // Initializing page =================
     // =====================================
     // Depending upon the value selected by the user, send him to the required screen 
     app.post('/selection', function (req, res) {

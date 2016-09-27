@@ -5,20 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LAD-Gen</title>
-    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
-    <script src="js/controller/angularCodes.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
 
-<body ng-app="myApp" ng-controller="mainController">
+<body ng-app="myApp" ng-controller="mainController" onload="init()">
     <div class="main-div" ng-show="mainTab.ioVisibility">
         <div class="cust-tabs">
             <div class="cust-tab active" ng-click="ioTabChange('input')">
@@ -87,19 +81,120 @@
             </div>
         </div>
     </div>
-    <div class="main-div" ng-show="!mainTab.ioVisibility">
-
+    <div class="main-div" ng-show="(!mainTab.ioVisibility) && (!mainTab.ladderVisibility)">
+        <div id="scrollDiv">
+            <canvas id="canvas" width="2000" height="4000">
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+        </div>
+        <div id="canvas-menu" class="context-menu">
+            <a class="context-menu-link" onclick="addObj('desc')">
+                Add Decision Box
+            </a>
+            <a class="context-menu-link" onclick="addObj('rect')">
+                Add Processing Box
+            </a>
+            <a class="context-menu-link" onclick="clearLines()">
+                clear Connections
+            </a>
+        </div>
+        <div id="object-menu" class="context-menu">
+            <a class="context-menu-link" onclick="deleteCanvas()">
+                Delete
+            </a>
+        </div>
+        <div id="input-select">
+            <br/>
+            <div>
+                &nbsp;&nbsp;<span> Input Tag </span> &nbsp;
+                <select id='in-tag' class="drop-down ">
+                    <option ng-repeat="i in inputs">{{i.tag}}</option>
+                </select>
+            </div>
+            <br/>
+            <div>
+                &nbsp;&nbsp;<span> State</span> &nbsp;
+                <select id='in-state' class="drop-down ">
+                    <option>OFF</option>
+                    <option>ON</option>
+                </select>
+            </div>
+            </br>
+            <div class="text-center">
+                <button type="button" class="butn" onclick="assignText('input')">OK</button>
+            </div>
+        </div>
+        <div id="output-select">
+            <br/>
+            <div>
+                &nbsp; &nbsp; <span> output Tag </span> &nbsp;
+                <select id='out-tag' class="drop-down ">
+                    <option ng-repeat="i in outputs">{{i.tag}}</option>
+                </select>
+            </div>
+            <br/>
+            <div>
+                &nbsp;&nbsp;<span> State</span> &nbsp;
+                <select id='out-state' class="drop-down ">
+                    <option>OFF</option>
+                    <option>ON</option>
+                </select>
+            </div>
+            </br>
+            <div class="text-center">
+                <button type="button" class="butn" onclick="assignText('output')">OK</button>
+            </div>
+        </div>
+        <div id="generate-button" class="text-center">
+            <button type="button" class="butn gene-button" onclick="sendJson()" ng-click="mainTabChange('la')">
+                Generate
+                <i class="fa fa-angle-right"> </i>
+            </button>
+        </div>
     </div>
-    <ul class="tabrow">
+    <div class="main-div" ng-show="mainTab.ladderVisibility">
+        <div class="mt-top-10">
+            <ul id="ladder-tab" class="tabcol">
+                <li class="selected" ng-click="ladderTabChange('tr')"><a>Transactions</a></li>
+                <li class="" ng-click="ladderTabChange('fn')"><a>Functions</a></li>
+                <li class="" ng-click="ladderTabChange('out')"><a>Outputs</a></li>
+            </ul>
+            <div class="ladder-div" ng-show="ladderTab.transVisible">
+                <div id="scrollDiv-ladder">
+                    <canvas id="trans-canvas" width="2000" height="4000">
+                        This text is displayed if your browser does not support HTML5 Canvas.
+                    </canvas>
+                </div>
+            </div>
+            <div class="ladder-div" ng-show="ladderTab.funcVisible">
+                <div id="scrollDiv-ladder">
+                    <canvas id="function-canvas" width="2000" height="4000">
+                        This text is displayed if your browser does not support HTML5 Canvas.
+                    </canvas>
+                </div>
+            </div>
+            <div class="ladder-div" ng-show="(!ladderTab.transVisible)&&(!ladderTab.funcVisible)">
+                <div id="scrollDiv-ladder">
+                    <canvas id="output-canvas" width="2000" height="4000">
+                        This text is displayed if your browser does not support HTML5 Canvas.
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul id="main-tab" class="tabrow">
         <li class="selected" ng-click="mainTabChange('io')"><a>I/0</a></li>
         <li class="" ng-click="mainTabChange('fc')"><a>FlowChart</a></li>
+        <li class="" ng-click="mainTabChange('la')"><a>Ladder</a></li>
     </ul>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/flowChart.js"></script>
+    <script src="js/ladder.js"></script>
+    <script src="js/controller/angularCodes.js"></script>    
     <script>
-        $("li").click(function(e) {
-            e.preventDefault();
-            $("li").removeClass("selected");
-            $(this).addClass("selected");
-        });
         $('.cust-tab').click(function(){
             $('.cust-tab').removeClass('active');
             $(this).addClass('active');

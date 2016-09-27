@@ -19,6 +19,8 @@ var io = require('socket.io').listen(server);
 var port = process.env.PORT || 5012;
 var flash = require('connect-flash');
 
+//var logic = require('./logic/logic.js');
+
 //Json Parser functions
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -36,6 +38,13 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // routes ======================================================================
 require('./app/routes.js')(app, io); // load our routes and pass in our app and fully configured passport
+
+io.on("connection", function (socket) {
+    //socket which recieves the flow chart details JSON from the front end 
+    socket.on('logic', function (data) {
+        require('./logic/logic.js')(data,io);
+    });
+});
 
 server.listen(port);
 
