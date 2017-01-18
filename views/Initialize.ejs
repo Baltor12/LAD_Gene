@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LAD-Gen</title>
-    <link rel="stylesheet" href="css/page0.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
 
@@ -13,17 +13,28 @@
     <!--- main center panel for login ---->
     <div class="modal position">
         <div id='md-top-25' style="text-align: center;">
-            <h2>
-                LAD-Gen
-            </h2>
-        </div>
-        <br/>       
-        <!-- Selection form -->
-        <form id="selection" action="/selection" method="post" class="mt-top-10 mt-left-25 wd-450 mt-bot-15 form1" style="text-align:center;">
-           <button id="creatNew" name="button" value="create" class=" mt-top-25 mt-bot-25 btn">Create New</button></br>
-           <button id="modify" name="button" value="modify" class="mt-bot-10 btn">Modify Existing</button>
-        </form>
-    </div>
+<h2>
+    LAD-Gen
+</h2>
+</div>
+<br/>
+<!-- Selection form -->
+<form id="selection" action="/selection" method="post" class="mt-top-10 mt-left-25 wd-450 mt-bot-15 form1" style="text-align:center;">
+<input type="hidden" name="user" value="" size="40" />
+<button id="creatNew" name="button" value="create" class=" mt-top-25 mt-bot-25 btn">Create New</button></br>
+<button id="modify" name="button" value="modify" class="mt-bot-10 btn">Modify Existing</button>
+</form>
+</div>
+<script>
+    function htmlDecode(input) {
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+    var user_name = JSON.parse(htmlDecode("<%= JSON.stringify(user) %>"));
+    var formInfo = document.forms['selection'];
+    formInfo.user.value = user_name;
+</script>
 </body>
 
 </html>

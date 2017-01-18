@@ -103,6 +103,9 @@
                 Delete
             </a>
         </div>
+        <form class="text-center" id="help" action="/help" method="post">
+            <button name="button" type="submit" value="help" class="butn gene-button">Help</button>
+        </form>
         <div id="input-select">
             <br/>
             <div>
@@ -145,8 +148,27 @@
                 <button type="button" class="butn" onclick="assignText('output')">OK</button>
             </div>
         </div>
-        <div id="generate-button" class="text-center">
-            <button type="button" class="butn gene-button" onclick="sendJson()" ng-click="mainTabChange('la')">
+        <div id="save-content" ng-show="saveComponents">
+            <div class="text-center">
+                <input id="progname" type="text" placeholder="Program Name" class="field mt-bot-10">
+            </div>  
+            <div class="text-center">
+                <button type="button" class="butn-s mt-right-10" onclick="save()" ng-click = "saveSpaceClick()">
+                    Ok
+                    <i class="fa fa-check-circle"> </i>
+                </button>
+                <button type="button" class="butn mt-left-10" ng-click="saveSpaceClick()">
+                    Cancel
+                    <i class="fa fa-times-circle"> </i>
+                </button>
+            </div>
+        </div>
+        <div id="generate-button" class="text-center">                     
+            <button type="button" class="butn-s gene-button mt-right-10" ng-click="saveProgram()" ng-disabled="saveComponents">
+                Save
+                <i class="fa fa-floppy-o"> </i>
+            </button>
+            <button type="button" class="butn gene-button mt-left-10" onclick="sendJson()" ng-click="mainTabChange('la')" ng-disabled="saveComponents">
                 Generate
                 <i class="fa fa-angle-right"> </i>
             </button>
@@ -161,21 +183,21 @@
             </ul>
             <div class="ladder-div" ng-show="ladderTab.transVisible">
                 <div id="scrollDiv-ladder">
-                    <canvas id="trans-canvas" width="2000" height="4000">
+                    <canvas id="trans-canvas" width="2000" height="6000">
                         This text is displayed if your browser does not support HTML5 Canvas.
                     </canvas>
                 </div>
             </div>
             <div class="ladder-div" ng-show="ladderTab.funcVisible">
                 <div id="scrollDiv-ladder">
-                    <canvas id="function-canvas" width="2000" height="4000">
+                    <canvas id="function-canvas" width="2000" height="6000">
                         This text is displayed if your browser does not support HTML5 Canvas.
                     </canvas>
                 </div>
             </div>
             <div class="ladder-div" ng-show="(!ladderTab.transVisible)&&(!ladderTab.funcVisible)">
                 <div id="scrollDiv-ladder">
-                    <canvas id="output-canvas" width="2000" height="4000">
+                    <canvas id="output-canvas" width="2000" height="6000">
                         This text is displayed if your browser does not support HTML5 Canvas.
                     </canvas>
                 </div>
@@ -193,13 +215,29 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/flowChart.js"></script>
     <script src="js/ladder.js"></script>
-    <script src="js/controller/angularCodes.js"></script>    
     <script>
         $('.cust-tab').click(function(){
             $('.cust-tab').removeClass('active');
             $(this).addClass('active');
         });
     </script>
+    <script>
+        function htmlDecode(input) {
+            var e = document.createElement('div');
+            e.innerHTML = input;
+            return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+        }
+        var user_name = JSON.parse(htmlDecode("<%= JSON.stringify(user) %>"));
+        var prog_name = JSON.parse(htmlDecode("<%= JSON.stringify(name) %>"));
+        var prog_obj = JSON.parse(htmlDecode("<%= JSON.stringify(obj) %>"));
+
+        // If it is editing assign the program name for saving
+        if(prog_name != '' && prog_name != undefined){
+            document.getElementById("progname").value = prog_name;
+            refreshObj();
+        }
+    </script>
+    <script src="js/controller/angularCodes.js"></script>
 </body>
 
 </html>

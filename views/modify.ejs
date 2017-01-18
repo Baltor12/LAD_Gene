@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LAD-Gen</title>
+   <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/login.css">    
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body ng-app="modifyApp" ng-controller="modifyController">
+    <!--- main center panel for login ---->
+    <div class="modal position">
+        <div id='md-top-25' style="text-align: center;">
+            <h2>
+                LAD-Gen
+            </h2>
+        </div>
+         <form id="editDelete" action="/editDelete" method="post" class="mt-top-10 mt-left-25 wd-450 mt-bot-15 form1" style="text-align:center;">
+            <input type="hidden" name="user" value="" size="40" />
+            <div class="text-center">
+                <span class="fnt-palatino fnt-20 fnt-bold"> Select Program </span>
+            </div>                
+            <br/>
+            <select name="name" class="drop-down mt-bot-25" ng-model="progVar.progName" ng-change="progChange()">
+                <option ng-repeat="i in progNameArr" value="{{i}}">{{i}}</option>
+            </select>            
+            <br/>
+            <button name="button" type="submit" value="edit" class="btn btn-success">Edit</button>
+            <button name="button" type="submit" value="delete" class="btn btn-danger">Delete</button>
+        </form>   
+    </div>   
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script>    
+        function htmlDecode(input) {
+            var e = document.createElement('div');
+            e.innerHTML = input;
+            return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+        }
+        var progName = JSON.parse(htmlDecode("<%= JSON.stringify(progName) %>"));
+        var progUser = JSON.parse(htmlDecode("<%= JSON.stringify(progUser) %>"));
+        
+        //Assign values to the form
+        var formInfo = document.forms['editDelete'];
+        formInfo.user.value = progUser;
+    </script>
+    <script src="js/controller/modifyAngular.js"></script>
+</body>
+
+</html>

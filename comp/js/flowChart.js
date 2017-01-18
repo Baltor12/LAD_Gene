@@ -2,6 +2,8 @@
 // holds all objects
 var objects = [];
 
+var initItems = true;
+
 //Socket Io
 var socket = io();
 
@@ -122,7 +124,7 @@ function line() {
     this.stroke = '#000';
     this.strokeWidth = 4;
     this.fill = '#000';
-    this.connflowType = true; //especially to determine if the ooneting line is for False flow of decision box
+    this.connflowType = true; //especially to determine if the connecting line is for False flow of decision box
 }
 
 /**
@@ -232,23 +234,25 @@ function init() {
     canvas.oncontextmenu = rightClick;
     canvas.onselectstart = myDblClick;
 
-    //Get the GUID for start, assign it to both Start and the connector
-    var startGuid = guid();
+    if (initItems) {
+        //Get the GUID for start, assign it to both Start and the connector
+        var startGuid = guid();
 
-    // add a Start circle
-    addCirc(startGuid, 400, 90, 40, 'Start', '#33FF33', 'transparent', false, 0, false, '');
+        // add a Start circle
+        addCirc(startGuid, 400, 90, 40, 'Start', '#33FF33', 'transparent', false, 0, false, '');
 
-    // add a Connector(Start-bottom) circle for Start
-    addCirc(guid(), 400, 130, 5, '', 'transparent', 'transparent', true, 1, false, startGuid);
+        // add a Connector(Start-bottom) circle for Start
+        addCirc(guid(), 400, 130, 5, '', 'transparent', 'transparent', true, 1, false, startGuid);
 
-    //Get the GUID for end, assign it to both End and the connector
-    var endGuid = guid();
+        //Get the GUID for end, assign it to both End and the connector
+        var endGuid = guid();
 
-    // add a End circle
-    addCirc(endGuid, 300, 90, 40, 'End', '#FF6666', 'transparent', false, 0, false, '');
+        // add a End circle
+        addCirc(endGuid, 300, 90, 40, 'End', '#FF6666', 'transparent', false, 0, false, '');
 
-    // add a Connector(End-top) circle for End
-    addCirc(guid(), 300, 50, 5, '', 'transparent', 'transparent', false, 0, true, endGuid);
+        // add a Connector(End-top) circle for End
+        addCirc(guid(), 300, 50, 5, '', 'transparent', 'transparent', false, 0, true, endGuid);
+    }
 
 }
 
@@ -480,6 +484,11 @@ function drawshape(context, shape) {
             context.font = font;
             context.textBaseline = 'top';
             context.fillText(shape.text, shape.x + 40, shape.y + 60);
+            font = '15px serif';
+            context.fillStyle = 'black';
+            context.font = font;
+            context.fillText("NO", shape.x + shape.w + 20, shape.y + (shape.h / 2) - 20);
+            context.fillText("YES", shape.x + (shape.w / 2) - 35, shape.y + shape.h + 20);
             break;
         case 'line':
             if ((shape.stObjGuid != '') && (shape.endObjGuid != '')) {
@@ -510,26 +519,41 @@ function drawshape(context, shape) {
                     context.moveTo(stObjX + 30, endObjY);
                 } else if (stObjX < endObjX) {
                     //calculate the midpoint for drawing the vertical line
-                    if ((endObjY > stObjY) || (descCon)) {
+                    if (endObjY > stObjY) {
                         var midPoint = (endObjX - stObjX) / 2;
+                        context.lineTo(stObjX + midPoint, stObjY);
+                        context.moveTo(stObjX + midPoint, stObjY);
+                        context.lineTo(stObjX + midPoint, endObjY);
+                        context.moveTo(stObjX + midPoint, endObjY);
                     } else {
                         var midPoint = 100;
+                        context.lineTo(stObjX - midPoint, stObjY);
+                        context.moveTo(stObjX - midPoint, stObjY);
+                        context.lineTo(stObjX - midPoint, endObjY);
+                        context.moveTo(stObjX - midPoint, endObjY);
                     }
-                    context.lineTo(stObjX + midPoint, stObjY);
-                    context.moveTo(stObjX + midPoint, stObjY);
-                    context.lineTo(stObjX + midPoint, endObjY);
-                    context.moveTo(stObjX + midPoint, endObjY);
                 } else if (stObjX > endObjX) {
                     //calculate the midpoint for drawing the vertical line
-                    if ((endObjY > stObjY) || (descCon)) {
+                    if (endObjY > stObjY) {
                         var midPoint = (endObjX - stObjX) / 2;
+                        if (descCon) {
+                            context.lineTo(stObjX + midPoint, stObjY);
+                            context.moveTo(stObjX + midPoint, stObjY);
+                            context.lineTo(stObjX + midPoint, endObjY);
+                            context.moveTo(stObjX + midPoint, endObjY);
+                        } else {
+                            context.lineTo(stObjX + midPoint, stObjY);
+                            context.moveTo(stObjX + midPoint, stObjY);
+                            context.lineTo(stObjX + midPoint, endObjY);
+                            context.moveTo(stObjX + midPoint, endObjY);
+                        }
                     } else {
                         var midPoint = -100;
+                        context.lineTo(stObjX - midPoint, stObjY);
+                        context.moveTo(stObjX - midPoint, stObjY);
+                        context.lineTo(stObjX - midPoint, endObjY);
+                        context.moveTo(stObjX - midPoint, endObjY);
                     }
-                    context.lineTo(stObjX - midPoint, stObjY);
-                    context.moveTo(stObjX - midPoint, stObjY);
-                    context.lineTo(stObjX - midPoint, endObjY);
-                    context.moveTo(stObjX - midPoint, endObjY);
                 }
                 context.lineTo(endObjX, endObjY);
                 //Arrow at the end of each line
@@ -781,6 +805,23 @@ function deleteCanvas() {
     if (arrIndex != -1) {
         //Removing the Object if it is available in the Objects array
         objects.splice(arrIndex, 1);
+        //Remove all the associated connecting circles
+        var flag = true;
+        while (flag) {
+            var arrIndexCirc = -1;
+            //Finding the index of the object with the particular id in the Objects array
+            for (var i = 0; i < objects.length; i++) {
+                if (objectId == objects[i].parentId) {
+                    arrIndexCirc = i;
+                }
+            }
+            if (arrIndexCirc != -1) {
+                //Removing the Object if it is available in the Objects array
+                objects.splice(arrIndexCirc, 1);
+            } else {
+                flag = false;
+            }
+        }
         //Redraw the complete canvas
         canvasValid = false;
         //The selection is made invalid inorder to remove all the reference to that element.
@@ -904,12 +945,50 @@ function sendJson() {
     var ngEl = angular.element(domEl);
     var ngElScope = ngEl.scope();
 
-    //Generate logic jason with input, outputs from Angular and flowchart details form current javascript
+    //Generate logic json with input, outputs from Angular and flowchart details form current javascript
     var logicJson = { 'objects': objects, 'inputs': ngElScope.inputs, 'outputs': ngElScope.outputs };
     console.log(logicJson);
     //Emit the Json to backend
     socket.emit("logic", logicJson);
 }
 
+/**
+ * Function that saves the Flowchart related objets to the mongodb
+ */
+function save() {
+    // Get input and output details from JSON
+    var domEl = document.querySelector('[ng-controller="mainController"]');
+    var ngEl = angular.element(domEl);
+    var ngElScope = ngEl.scope();
+
+    //get date and time
+    var d = new Date();
+    var n = d.getTime();
+
+    var progName = document.getElementById("progname").value;
+
+    if (progName == '') {
+        progName = 'program' + n;
+    }
+
+    //Generate logic json with input, outputs from Angular and flowchart details form current javascript
+    var logicJson = { 'objects': objects, 'inputs': ngElScope.inputs, 'outputs': ngElScope.outputs };
+    var message = { user: user_name, name: progName, obj: JSON.stringify(logicJson) };
+    $.post("/save", message, function (data, status) {
+        document.getElementById("progname").value = '';
+    });
+}
+
+/**
+ * Function to refresh the objects while edit program is clicked
+ */
+
+function refreshObj() {
+    //Assign objects from the JSON to the objects
+    objects = prog_obj.objects;
+    initItems = false;
+    //Redraw the complete canvas
+    invalidate();
+}
 
 

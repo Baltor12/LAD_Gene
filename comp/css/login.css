@@ -67,7 +67,11 @@ input:placeholder-shown{
     margin-top: -260px;
 }
 
-
+.drop-down {
+  padding: 3px 10px 3px 10px;
+  font-size: 14px;
+  border: 2px solid #706E6E;
+}
 
 .field {
   width: 250px;
@@ -138,5 +142,90 @@ input:placeholder-shown{
   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
+}
+
+.btn-success {
+  background: #2ca010;
+}
+
+.btn-success:hover {
+  background: #7ce861;
+  background-image: -webkit-linear-gradient(top, #7ce861, #41c421);
+  background-image: -moz-linear-gradient(top, #7ce861, #41c421);
+  background-image: -ms-linear-gradient(top, #7ce861, #41c421);
+  background-image: -o-linear-gradient(top, #7ce861, #41c421);
+  background-image: linear-gradient(to bottom, #7ce861, #41c421);
+}
+
+.btn-danger {
+  background: #d10404;
+}
+
+.btn-danger:hover {
+  background: #fc7171;
+  background-image: -webkit-linear-gradient(top, #fc7171, #ff4242);
+  background-image: -moz-linear-gradient(top, #fc7171, #ff4242);
+  background-image: -ms-linear-gradient(top, #fc7171, #ff4242);
+  background-image: -o-linear-gradient(top, #fc7171, #ff4242);
+  background-image: linear-gradient(to bottom, #fc7171, #ff4242);
+}
+
+
+/* tabs */
+
+.tabs {
+  width: 340px;
+  margin-top: 25px;
+}
+
+ul.tabs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: solid 1px #d8d8d8;
+  text-align: justify;
+}
+
+ul.tabs li {
+  display: inline-block;
+  width: 138px;
+  padding: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+ul.tabs li.current {
+  font-weight: bold;
+  box-shadow: inset 0 -3px 0 0 rgba(50, 117, 193, 1);
+  -webkit-box-shadow: inset 0 -3px 0 0 rgba(50, 117, 193, 1);
+  -moz-box-shadow: inset 0 -3px 0 0 rgba(50, 117, 193, 1);
+}
+
+ul.tabs li a { 
+  text-decoration: none;
+  font-size: 20px; 
+  }
+
+  ul.tabs li.current a{
+  font-weight: bold;
+  }
+
+.form-content {
+  display: none;
+}
+
+.form-content.current {
+  display: inherit;
+}
+
+.field {
+  width: 295px;
+  margin-top: 15px;
+  padding: 12px 15px 12px 30px;
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 22px;
+  border: 1px solid #d8d8d8;
 }
 

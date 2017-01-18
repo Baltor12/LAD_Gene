@@ -31,9 +31,6 @@ var funcId = 1;
 var transId = 1;
 var outputId = 1;
 
-//function list for output 
-var outFuncs = [];
-
 // The modal Objects will be later used to form the complete lists of functions, transitions and outputs
 // the Objects inside each model is associated in such a way that the frontend can build the ladder rungs directly from this model
 
@@ -42,6 +39,8 @@ var outFuncs = [];
  */
 function func() {
     this.id = 0;
+    this.type = '';
+    this.state = '';
     this.rungs = [];
 }
 
@@ -50,6 +49,8 @@ function func() {
  */
 function trans() {
     this.id = 0;
+    this.type = '';
+    this.state = '';
     this.rungs = [];
 }
 
@@ -58,6 +59,8 @@ function trans() {
  */
 function outpt() {
     this.id = 0;
+    this.type = '';
+    this.state = '';
     this.rungs = [];
 }
 
@@ -95,6 +98,7 @@ function objTrans() {
 function addFunc(id, rungs) {
     var funct = new func;
     funct.id = id;
+    funct.type = 'func';
     funct.rungs = rungs;
     funcList.push(funct);
 }
@@ -105,6 +109,7 @@ function addFunc(id, rungs) {
 function addTrans(id, rungs) {
     var transi = new trans;
     transi.id = id;
+    transi.type = 'trans';
     transi.rungs = rungs;
     transList.push(transi);
 }
@@ -112,9 +117,11 @@ function addTrans(id, rungs) {
 /**
  * function for adding outputs related objects
  */
-function addOutpt(id, rungs) {
+function addOutpt(id, rungs, state) {
     var output = new outpt;
     output.id = id;
+    output.type = 'output';
+    output.state = state;
     output.rungs = rungs;
     outptList.push(output);
 }
@@ -173,7 +180,6 @@ module.exports = function (json, io) {
     funcId = 1;
     transId = 1;
     outputId = 1;
-    outFuncs = [];
 
     //============================variables==========================//
 
@@ -227,50 +233,55 @@ module.exports = function (json, io) {
     }
 
     // Output rung formation
-    for (var i = 0; i < objFuncList.length; i++) {
-        var concurTrans = [];
-        var doneConcurTrans = [];
-        var output = '';
-        if ((objFuncList[i].output != '') && (objFuncList[i].state == 'ON')) {
-            outFuncs.push(objFuncList[i].id);
-            output = objFuncList[i].output;
-            concurTrans = outputElements(objFuncList[i], output);
-            // Iterate for every transactions and add the functions for outputs
-            while (concurTrans.length != 0) {
-                var tempConcurrTrans = [];
-                for (var m = 0; m < concurTrans.length; m++) {
-                    for (var j = 0; j < objTransList.length; j++) {
-                        if (objTransList.id == concurTrans[m]) {
-                            //check if the function has already been added
-                            //If not added then perform the adding operation
-                            if (outFuncs.indexOf(objTransList[j].toFuncId) == -1) {
-                                for (var k = 0; k < objFuncList.length; k++) {
-                                    if (objTransList[j].toFuncId == objFuncList[k].id) {
-                                        tempConcurrTrans = tempConcurrTrans.concat(outputElements(objFuncList[k], output));
-                                    }
-                                }
-                            }
-                        }
-                    }
+    //The output rung is added depending on the state of the output in the funstion (State ON == SET and State OFF == RESET)
+    for (var i = 0; i < outputs.length; i++) {
+        var setOutFuncs = [];
+        var resetOutFuncs = [];
+        var flag = false;
+        // Add the list of functions for the current output
+        for (var j = 0; j < objFuncList.length; j++) {
+            if (objFuncList[j].output == outputs[i].tag) {
+                //Depending on the state add to the respective array
+                if (objFuncList[j].state == 'ON') {
+                    setOutFuncs.push('F' + objFuncList[j].id);
+                } else {
+                    resetOutFuncs.push('F' + objFuncList[j].id);
                 }
-                doneConcurTrans = doneConcurTrans.concat(concurTrans);
-                //Remove duplicates in the concurrent transaction
-                tempConcurrTrans = removeDuplicatesTrans(tempConcurrTrans);
-                //check if the transactions have already been mapped
-                //if yes then remove them and add the rest to the concurrent transaction
-                concurTrans = removeDoneTransactions(doneConcurTrans, tempConcurrTrans);
             }
-            var outFuncNames = [];
-            for (var m = 0; m < outFuncs.length; m++) {
-                outFuncNames.push({ 'open': ['F' + outFuncs[m]], 'close': [], 'sepOpen': [], 'sepClose': [] });
-            }
-            //Add the whole to the output list
-            addOutpt(output, outFuncNames);
+        }
+        //Add the function names to the rung output 
+        //Starting with set functions
+        var outFuncNames = [];
+        for (j = 0; j < setOutFuncs.length; j++) {
+            outFuncNames.push({ 'open': [setOutFuncs[j]], 'close': [], 'sepOpen': [], 'sepClose': [] });
+            flag = true; //generate flag if atleast one value is added
+        }
+        if (flag) {
+            //Add the output rung
+            addOutpt(outputs[i].tag, outFuncNames, 'set');
+            //Reset the flag for next case
+            flag = false;
+        }
+        //Starting with reset functions
+        outFuncNames = [];
+        for (j = 0; j < resetOutFuncs.length; j++) {
+            outFuncNames.push({ 'open': [resetOutFuncs[j]], 'close': [], 'sepOpen': [], 'sepClose': [] });
+            flag = true; //generate flag if atleast one value is added
+        }
+        if (flag) {
+            //Add the output rung
+            addOutpt(outputs[i].tag, outFuncNames, 'reset');
+            //Reset the flag for next case
+            flag = false;
         }
     }
 
-    //First scan/start button rung add
-
+    //Lines
+    for (var i = 0; i < objects.length; i++) {
+        if (objects[i].type == 'line') {
+            lineList.push(objects[i]);
+        }
+    }
 
     //Transactions rung Formation
     for (var i = 0; i < objTransList.length; i++) {
@@ -286,11 +297,28 @@ module.exports = function (json, io) {
             for (var j = 0; j < objTransList[i].frmFuncIds.length; j++) {
                 for (var k = 0; k < objFuncList.length; k++) {
                     if (objFuncList[k].id == objTransList[i].frmFuncIds[j]) {
+                        // This will check if the parent fuction/block was an decision box or not and assign the transaction rung respectively
                         if (objFuncList[k].input != '') {
-                            if (objFuncList[k].state == 'ON') {
-                                transRungs.push({ 'open': ['F' + objFuncList[k].id, objFuncList[k].input], 'close': [], 'sepOpen': [], 'sepClose': [] });
+                            var falseTrans = false;
+                            //Since in the decision box, there can be two transactions (one for True and the other for false),
+                            //First the current transaction must be detected where it is from (either true or false) and then the respective components must nbe assigned.
+                            for (m = 0; m < lineList.length; m++) {
+                                if (lineList[m].id == objTransList[i].guid) {
+                                    falseTrans = !lineList[m].connflowType;
+                                }
+                            }
+                            if (!falseTrans) {
+                                if (objFuncList[k].state == 'ON') {
+                                    transRungs.push({ 'open': ['F' + objFuncList[k].id, objFuncList[k].input], 'close': [], 'sepOpen': [], 'sepClose': [] });
+                                } else {
+                                    transRungs.push({ 'open': ['F' + objFuncList[k].id], 'close': [objFuncList[k].input], 'sepOpen': [], 'sepClose': [] });
+                                }
                             } else {
-                                transRungs.push({ 'open': ['F' + objFuncList[k].id], 'close': [objFuncList[k].input], 'sepOpen': [], 'sepClose': [] });
+                                if (objFuncList[k].state == 'ON') {
+                                    transRungs.push({ 'open': ['F' + objFuncList[k].id], 'close': [objFuncList[k].input], 'sepOpen': [], 'sepClose': [] });
+                                } else {
+                                    transRungs.push({ 'open': ['F' + objFuncList[k].id, objFuncList[k].input], 'close': [], 'sepOpen': [], 'sepClose': [] });
+                                }
                             }
                         } else {
                             transRungs.push({ 'open': ['F' + objFuncList[k].id], 'close': [], 'sepOpen': [], 'sepClose': [] });
@@ -344,7 +372,7 @@ function noObjectsAsFunctions() {
     //Repeat the process till all the functions have been mapped
     while (concurrGuids.length != 0) {
         var tempconcurrGuids = [];
-        for (var i = 1; i < concurrGuids.length; i++) {
+        for (var i = 0; i < concurrGuids.length; i++) {
             nextGuid = concurrGuids[i].guid;
             parentGuid = concurrGuids[i].parentGuid;
             //Map the objects with function no and get the concurrents
@@ -352,9 +380,9 @@ function noObjectsAsFunctions() {
             //Append the array to the already existing one
             tempconcurrGuids.push.apply(tempconcurrGuids, concurrGuids1);
             //Remove duplicates in the concurrent Guids 
-            tempconcurrGuids = removeDuplicatesFunc(concurrGuids);
+            tempconcurrGuids = removeDuplicatesFunc(tempconcurrGuids);
             //Remove already mapped functions from the concurrent one
-            tempconcurrGuids = removeExistingFunctions(concurrGuids);
+            tempconcurrGuids = removeExistingFunctions(tempconcurrGuids);
         }
         concurrGuids = tempconcurrGuids;
     }
@@ -503,7 +531,7 @@ function removeDuplicatesFunc(arr) {
 function removeExistingFunctions(concurrGuids) {
     for (var i = 0; i < objFuncList.length; i++) {
         var arrIndex = -1;
-        for (var j = 1; j < concurrGuids.length; j++) {
+        for (var j = 0; j < concurrGuids.length; j++) {
             if (objFuncList[i].guid == concurrGuids[j].guid) {
                 arrIndex = i;
             }
@@ -541,7 +569,7 @@ function noObjectsAsTransations() {
     for (var i = 0; i < objFuncList.length; i++) {
         var arrIndex = -1;
         for (var j = 0; j < lineList.length; j++) {
-            if ((lineList[j].endObjParentGuid == objFuncList[i].guid) && (lineList[j].stObjParentGuid == objFuncList[i].parentGuid) && (lineList[j].connflowType)) {
+            if ((lineList[j].endObjParentGuid == objFuncList[i].guid) && (lineList[j].stObjParentGuid == objFuncList[i].parentGuid)) {
                 //Check if a similar transaction already exists
                 //ie to function(child function) is the same
                 var flagB = true;

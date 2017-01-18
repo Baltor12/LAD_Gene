@@ -34,7 +34,7 @@ body {
 /*=======================Tabset=======================*/
 
 .main-div{
-    height:95%;
+    height:99%;
     padding:0;
     background-color: rgba(255,255,255,.95);
     margin: 10px 10px 0;
@@ -384,7 +384,7 @@ body {
 #output-select{
     display: none;
     position:absolute;
-    top: 5%;
+    top: 7%;
     right: 2%; 
     width: 17%;
     height: 25%;
@@ -400,10 +400,18 @@ body {
     box-sizing: border-box;
 }
 
+#help{
+    position:absolute;
+    top: 3%;
+    right: 2%; 
+    width: 17%;
+    height: 25%;
+}
+
 #input-select{
     display: none;
     position:absolute;
-    top: 5%;
+    top: 7%;
     right: 2%; 
     width: 17%;
     height: 25%;
@@ -420,6 +428,13 @@ body {
 }
 
 /*====================================================*/
+
+#save-content{
+    position:absolute;
+    bottom: 21%;
+    right: 2%; 
+    width: 17%;
+}
 
 /*==========================genererate button space ==========================*/
 
@@ -443,6 +458,28 @@ body {
   font-size: 16px;
   background: #454aad;
   padding: 3px 10px;
+  text-decoration: none;
+}
+
+.butn-s {
+  -webkit-border-radius: 8;
+  -moz-border-radius: 8;
+  border-radius: 5px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 16px;
+  background: #67a832;
+  padding: 3px 10px;
+  text-decoration: none;
+}
+
+.butn-s:hover {
+  background: #75cc2e;
+  background-image: -webkit-linear-gradient(top, #6ed619, #6ed619);
+  background-image: -moz-linear-gradient(top, #6ed619, #6ed619);
+  background-image: -ms-linear-gradient(top, #6ed619, #6ed619);
+  background-image: -o-linear-gradient(top, #6ed619, #6ed619);
+  background-image: linear-gradient(to bottom, #6ed619, #6ed619);
   text-decoration: none;
 }
 

@@ -1,15 +1,23 @@
 {
-    "name": "LadderDiagramGenerator",
-    "version": "0.1.0",
-    "description": "An web based application for the generation of ladder diagrams.",
-    "main": "app.js",
-    "author": {
-        "name": "Balaji Gopalakrishnan",
-        "email": "balaji.aviator@gmail.com"
-    },
-    "dependencies": {
-        "ejs": "~0.8.5",
-        "express": "3.4.4",
-        "jade": "*"
-    }
+  "name": "LadderDiagramGenerator",
+  "version": "0.1.0",
+  "description": "An web based application for the generation of ladder diagrams.",
+  "main": "app.js",
+  "author": {
+    "name": "Balaji Gopalakrishnan",
+    "email": "balaji.aviator@gmail.com"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "~0.8.5",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "jade": "*",
+    "mongoose": "^4.7.3",
+    "morgan": "^1.7.0",
+    "nodemailer": "0.7.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
 }

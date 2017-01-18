@@ -1,5 +1,5 @@
 var app = angular.module('myApp', []);
-app.controller('mainController', function ($scope) {
+app.controller('mainController', function ($scope, $window) {
 
     /*============================================Variables============================================*/
 
@@ -31,11 +31,29 @@ app.controller('mainController', function ($scope) {
 
     $scope.outId = 2;
 
+    $scope.saveButton = false;
+
+    $scope.generateButton = false;
+
+    $scope.saveCompnents = false;
+
+    $scope.progUser = $window.user_name;
+
+    $scope.progName = $window.prog_name;
+
+    $scope.progObjects = $window.prog_obj;
+
     /*================================================================================================*/
 
     /*============================================Functions============================================*/
 
     /*----------------------------------------------main tab functions--------------------------------*/
+
+    //Populate the variables of inputs and outputs if the objects are present
+    if(Object.keys($scope.progObjects).length > 0){
+        $scope.inputs = $scope.progObjects.inputs;
+        $scope.outputs = $scope.progObjects.outputs;
+    }
 
     /** 
     * Function which is performed when the main tab is pressed
@@ -149,6 +167,20 @@ app.controller('mainController', function ($scope) {
             }
         }
     };
+
+    /*----------------------------------------------Flowchart tab functions--------------------------------*/
+
+    $scope.saveProgram = function(){
+        $scope.saveComponents = true;
+        $scope.saveButton = true;
+        $scope.generateButton = true;
+    }
+
+    $scope.saveSpaceClick = function(){
+         $scope.saveComponents = false;
+        $scope.saveButton = false;
+        $scope.generateButton = false;
+    }
 
     /*================================================================================================*/
 });

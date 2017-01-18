@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>LAD-Gen</title>
+        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+
+    <body>
+        <!-- main center panel for login -->
+        <div class="modal position">
+            <div id='md-top-25' style="text-align: center;">
+                <h2>
+                    LAD-Gen
+                </h2>
+            </div>
+            <br/>
+            <div class="wd-450 mt-left-25">
+                <span class="fnt-20 fnt-Trebuchet">A web based Application for converting PLC logics in FlowChart to Ladder Diagram </span>
+            </div>
+    <!-- login form -->
+            <div class="tabs mt-bot-20">
+                <ul class="tabs">
+                    <li class="current" data-tab="member">
+                        <a href="#member">SIGN IN</a>
+                    </li>
+                    <li data-tab="new">
+                        <a href="#new">REGISTER</a>
+                    </li>
+                </ul>
+                <div class="form-content current" id="member">
+                    <form id="sign-in" action="/login" method="post" class="form1 mt-top-10 mt-left-25 wd-450" style="text-align:center;">
+                        <input type="text" name="user" placeholder="USERNAME" class="field mt-bot-10" required><br/>
+                        <input type="password" name="password" placeholder="PASSWORD" class="field mt-bot-10" required><br/>
+                        <button id="submit" name="sign-in-button" class="mt-top-50 mt-bot-10 btn">Sign In</button>
+                    </form>
+                </div>
+                <div class="form-content" id="new">
+                    <form id="register" action="/signup" method="post" class="form1 mt-top-10 mt-left-25 wd-450" style="text-align:center;">                       
+                        <input type="text" name="user" placeholder="USERNAME" class="field mt-bot-10" required><br/>
+                        <input type="text" name="email" placeholder="EMAIL" class="field mt-bot-10" required><br/>
+                        <input type="password" name="password" placeholder="PASSWORD" class="field mt-bot-10" required><br/>
+                        <button id="submit" name="register-button" class="mt-bot-10 btn">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('ul.tabs li').click(function () {
+                    var tab_id = $(this).attr('data-tab');
+                    $('ul.tabs li').removeClass('current');
+                    $('.form-content').removeClass('current');
+                    $(this).addClass('current');
+                    $("#" + tab_id).addClass('current');
+                })
+            });
+        </script>
+    </body>
+
+</html>

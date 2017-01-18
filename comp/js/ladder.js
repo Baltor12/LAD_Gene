@@ -53,7 +53,8 @@ function drawCanvas(ctx, comp) {
         //Draw the rung initially
         drawRung(rungPosY, ctx, rungNo);
         //Draw Output
-        drawOutput(rungPosY + 50, ctx, comp[i].id);
+        drawOutput(rungPosY + 50, ctx, comp[i].id, comp[i].type, comp[i].state);
+        var inNo = 0;
         //draw sub-rungs for each function except the first ones
         //Also map the output in the rung/sub-rung 
         for (var j = 0; j < comp[i].rungs.length; j++) {
@@ -61,7 +62,14 @@ function drawCanvas(ctx, comp) {
             //sub-rung
             if (j != 0) {
                 //calculate the number of inputs in the sub-rung
-                var inNo = comp[i].rungs[j].close.length + comp[i].rungs[j].open.length + comp[i].rungs[j].sepClose.length + comp[i].rungs[j].sepOpen.length;
+                inNo = comp[i].rungs[j].close.length + comp[i].rungs[j].open.length + comp[i].rungs[j].sepClose.length + comp[i].rungs[j].sepOpen.length;
+                //Also calculate the number of inputs in the next subrung and determine the length else the next subrung will be hanging
+                for (var k = j; k < comp[i].rungs.length; k++) {
+                    var tempInNo = comp[i].rungs[k].close.length + comp[i].rungs[k].open.length + comp[i].rungs[k].sepClose.length + comp[i].rungs[k].sepOpen.length;
+                    if (tempInNo > inNo) {
+                        inNo = tempInNo;
+                    }
+                }
                 drawSubRung(rungPosY, ctx, inNo);
             }
             //draw inputs which are normally closed
@@ -169,7 +177,7 @@ function drawSubRung(y, ctx, inNo) {
  * Function that draws the output in the main rung
  * the inputs are Y position and the output tag (text)
  */
-function drawOutput(y, ctx, text) {
+function drawOutput(y, ctx, text, type, state) {
     //Circle
     ctx.beginPath();
     ctx.arc(680, y, 20, 0, 2 * Math.PI, true);
@@ -185,6 +193,15 @@ function drawOutput(y, ctx, text) {
     ctx.fillStyle = '#000';
     ctx.textBaseline = 'middle';
     ctx.fillText(text, 660, y - 40);
+    if (type == 'output') {
+        font = 'bold 23px sans-serif';
+        ctx.font = font;
+        if ((state != '') && (state == 'set')) {
+            ctx.fillText("S", 673, y);
+        } else if ((state != '') && (state == 'reset')) {
+            ctx.fillText("R", 673, y);
+        }
+    }
     ctx.closePath();
 }
 
